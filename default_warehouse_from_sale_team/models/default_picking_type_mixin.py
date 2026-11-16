@@ -17,6 +17,10 @@ class DefaultPickingTypeMixin(models.AbstractModel):
         of the sales team.
         """
         res = super().default_get(fields_list)
+        # Odoo requires default_get to return only the requested fields
+        # (base.tests.test_overrides.TestOverrides.test_default_get).
+        if "picking_type_id" not in fields_list:
+            return res
         default_warehouse = self.env.user._get_default_warehouse_id()
         if default_warehouse:
             pick_type = self.env["stock.picking.type"].search(

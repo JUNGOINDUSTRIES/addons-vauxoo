@@ -52,7 +52,7 @@ class TestSalesTeamDefaultWarehouse(TransactionCase):
         """Validate the picking type by default from sale team warehouse in
         purchase requisition
         """
-        values = self.purchase_requisition_obj.with_user(self.demo_user).default_get([])
+        values = self.purchase_requisition_obj.with_user(self.demo_user).default_get(["picking_type_id"])
         pick_type_id = self.pick_type_obj.browse(values.get("picking_type_id"))
 
         purchase_id = self.purchase_requisition_obj.with_user(self.demo_user).create({})
@@ -68,7 +68,7 @@ class TestSalesTeamDefaultWarehouse(TransactionCase):
         purchase order"""
         purchase_values = {"partner_id": self.partner.id, "name": "Purchase with sale team"}
 
-        values = self.purchase_obj.with_user(self.demo_user).default_get([])
+        values = self.purchase_obj.with_user(self.demo_user).default_get(["picking_type_id"])
         pick_type_id = self.pick_type_obj.browse(values.get("picking_type_id"))
 
         purchase_id = self.purchase_obj.with_user(self.demo_user).create(purchase_values)
